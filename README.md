@@ -1,4 +1,4 @@
-# local llama agent setup
+# local llama cpp with pi agent setup
 containerized usage of llama.cpp and pi agent
 
 ## Requirements
@@ -6,8 +6,8 @@ containerized usage of llama.cpp and pi agent
 - (nvidia-ctk if using nvidia cuda)
 
 ## Tuning
-repo is optimized for running nvidia GPU 24GB vram
-see models/llama-server-presets.ini 
+This repo is optimized for running NVIDIA GPU with 24GB VRam.
+See also `models/llama-server-presets.ini` 
 
 ## Setup
 ### create new podman network
@@ -20,10 +20,10 @@ podman network create llama
 ```bash
 ./llama-router.sh
 ```
-- check if running open browser http://127.0.0.1:28080
+- check with browser http://127.0.0.1:28080
 
 ### pi agent
-- build your personal image
+- build your local `pi-agent` image
 ```bash
  podman build pi -t pi-agent
 ```
@@ -33,7 +33,11 @@ podman network create llama
  podman run --rm -v ./pi/pi-agent-home:/root/.pi/agent pi-agent install https://github.com/gsanhueza/pi-llama-cpp
 ```
 
-### start agent
+## start llama server and pi agent
 ```
-./pi-agent.sh
+./llama-router.sh
+```
+```
+cd ${....to your workpace...}
+${~/git/local-llama/pi-agent.sh
 ```
