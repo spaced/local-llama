@@ -1,0 +1,5 @@
+idea
+.idea
+models/*.gguf
+models/huggingface
+pi/pi-agent-home
