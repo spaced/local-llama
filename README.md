@@ -33,11 +33,14 @@ podman network create llama
  podman run --rm -v ./pi/pi-agent-home:/root/.pi/agent pi-agent install https://github.com/gsanhueza/pi-llama-cpp
 ```
 
-## start llama server and pi agent
-```
+## Start llama server and pi agent
+
+In one terminal, start the llama server:
+```bash
 ./llama-router.sh
 ```
-```
-cd ${....to your workpace...}
-${~/git/local-llama/pi-agent.sh
+
+In another terminal, start the pi agent pointing to your workspace:
+```bash
+./pi-agent.sh /path/to/your/workspace
 ```
