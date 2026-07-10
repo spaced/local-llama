@@ -27,14 +27,14 @@ podman network create llama
 ```bash
  podman build pi -t pi-agent
 ```
-- install extensions
-```bash
- podman run --rm -v ./pi/pi-agent-home:/root/.pi/agent pi-agent install npm:pi-extmgr
- podman run --rm -v ./pi/pi-agent-home:/root/.pi/agent pi-agent install https://github.com/gsanhueza/pi-llama-cpp
-```
 create a symlink, so you can run pi from everywhere
 ```bash
 ln -s ${PWD}/pi-agent.sh ~/.local/bin/pi
+```
+- install extensions ()
+```bash
+ pi install npm:pi-extmgr
+ pi install https://github.com/gsanhueza/pi-llama-cpp
 ```
 
 ## Start llama server and pi agent
