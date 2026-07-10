@@ -2,4 +2,6 @@ idea
 .idea
 models/*.gguf
 models/huggingface
+models-archive
 pi/pi-agent-home
+
