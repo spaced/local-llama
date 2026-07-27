@@ -4,4 +4,5 @@ models/*.gguf
 models/huggingface
 models-archive
 pi/pi-agent-home
+pi/scimap-data
 
