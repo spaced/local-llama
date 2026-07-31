@@ -6,10 +6,9 @@ RUN apt-get update \
 
 RUN npm install -g npm@12.0.0
 
-# swafra: an open-source, graph-based long-term memory tool designed for AI agents
+# setup a venv, so agent is able to install packages adhoc
 RUN python3 -m venv /root/venv
 ENV PATH="/root/venv/bin:$PATH"
-RUN python3 -m pip install swafra
 
 # native tools for typescript and yaml
 RUN npm install -g typescript-language-server typescript
@@ -25,7 +24,7 @@ RUN go install golang.org/x/tools/gopls@latest
 ENV PATH="/root/.local/bin:$PATH"
 RUN curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
 
-RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent@v0.82.1
+RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent@v0.83.0
 
 WORKDIR /workspace
 ENTRYPOINT ["pi"]

@@ -3,7 +3,6 @@
 SCRIPT_DIR=$(dirname $([ -L $0 ] && readlink -f $0 || echo $0))
 WORKSPACE_DIR="."
 PI_AGENT_HOME=${SCRIPT_DIR}/pi/pi-agent-home
-SCIMAP_DATA_DIR=${SCRIPT_DIR}/pi/scimap-data
 mkdir -p "${PI_AGENT_HOME}"
 
 WS_NAME=$(basename "$(pwd)")
@@ -19,5 +18,4 @@ podman run --network llama --rm -it \
   --name ${CONTAINER_NAME}
   -v ${WORKSPACE_DIR}:/workspace \
   -v "${PI_AGENT_HOME}":/root/.pi/agent \
-  -v "${SCIMAP_DATA_DIR}":/root/.scimap \
   pi-agent "$@"
