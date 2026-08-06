@@ -6,16 +6,21 @@ PI_AGENT_HOME=${SCRIPT_DIR}/pi/pi-agent-home
 mkdir -p "${PI_AGENT_HOME}"
 
 WS_NAME=$(basename "$(pwd)")
-if [ $# -gt 0 ]; then
-  ARGS_HASH=$(echo "$@" | sha256sum | cut -c1-8)
-  CONTAINER_NAME="pi-${WS_NAME}-${ARGS_HASH}"
-else
-  CONTAINER_NAME="pi-${WS_NAME}"
-fi
+CONTAINER_NAME="pi-${WS_NAME}-$(date | sha256sum | cut -c1-8)"
+
+# Parent-death detection in its own session so it survives if the parent group is killed.
+PARENT_PID=$PPID
+setsid bash -c '
+  while kill -0 '"$PARENT_PID"' 2>/dev/null; do
+    sleep 1
+  done
+  podman stop '"${CONTAINER_NAME}"'
+' </dev/null >/dev/null 2>&1 &
+disown $! 2>/dev/null
 
 podman run --network llama --rm -it \
   --env LLAMA_SERVER_URL="http://llamacpp:8080" \
-  --name ${CONTAINER_NAME}
+  --name "${CONTAINER_NAME}" \
   -v ${WORKSPACE_DIR}:/workspace \
   -v "${PI_AGENT_HOME}":/root/.pi/agent \
   pi-agent "$@"
