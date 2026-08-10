@@ -25,7 +25,7 @@ RUN go install golang.org/x/tools/gopls@latest
 ENV PATH="/root/.local/bin:$PATH"
 RUN curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
 
-RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent@v0.83.0
+RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent@v0.84.1
 
 WORKDIR /workspace
 ENTRYPOINT ["pi"]
