@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 SCRIPT_DIR=$(dirname $([ -L $0 ] && readlink -f $0 || echo $0))
-WORKSPACE_DIR="."
+HOST_WORKDIR=$(pwd -P)
 PI_AGENT_HOME=${SCRIPT_DIR}/pi/pi-agent-home
 mkdir -p "${PI_AGENT_HOME}"
 
@@ -21,6 +21,7 @@ disown $! 2>/dev/null
 podman run --network llama --rm -it \
   --env LLAMA_SERVER_URL="http://llamacpp:8080" \
   --name "${CONTAINER_NAME}" \
-  -v ${WORKSPACE_DIR}:/workspace \
+  -v ${HOST_WORKDIR}:${HOST_WORKDIR} \
   -v "${PI_AGENT_HOME}":/root/.pi/agent \
+  --workdir ${HOST_WORKDIR} \
   pi-agent "$@"
