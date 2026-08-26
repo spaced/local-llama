@@ -23,5 +23,6 @@ podman run --network llama --rm -it \
   --name "${CONTAINER_NAME}" \
   -v ${HOST_WORKDIR}:${HOST_WORKDIR} \
   -v "${PI_AGENT_HOME}":/root/.pi/agent \
+  -v ~/go/pkg/mod:/root/go/pkg/mod:ro \
   --workdir ${HOST_WORKDIR} \
   pi-agent "$@"
