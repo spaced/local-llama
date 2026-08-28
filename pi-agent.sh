@@ -18,11 +18,14 @@ setsid bash -c '
 ' </dev/null >/dev/null 2>&1 &
 disown $! 2>/dev/null
 
+# maps the invoking user onto itself in the container, so bind-mount files
+# keep host uid/gid/permissions (parity requires your uid to be pi-user's, 1000)
 podman run --network llama --rm -it \
+  --userns=keep-id \
   --env LLAMA_SERVER_URL="http://llamacpp:8080" \
   --name "${CONTAINER_NAME}" \
-  -v ${HOST_WORKDIR}:${HOST_WORKDIR} \
-  -v "${PI_AGENT_HOME}":/root/.pi/agent \
-  -v ~/go/pkg/mod:/root/go/pkg/mod:ro \
+  -v ${HOST_WORKDIR}:${HOST_WORKDIR}:Z \
+  -v "${PI_AGENT_HOME}":/home/pi-user/.pi:Z \
+  -v ~/go/pkg/mod:/home/pi-user/go/pkg/mod:ro,Z \
   --workdir ${HOST_WORKDIR} \
   pi-agent "$@"
