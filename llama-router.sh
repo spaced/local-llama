@@ -10,13 +10,14 @@ MODELS_DIR=${SCRIPT_DIR}/models
 mkdir -p "${HUGGING_FACE_CACHE_DIR}"
 
 podman run --network llama --rm --name llamacpp \
+  --log-driver none \
   -p ${HTTP_PORT}:8080 \
   -v "${MODELS_DIR}":/models \
   -v "${HUGGING_FACE_CACHE_DIR}":/root/.cache/huggingface \
   --env GGML_CUDA_GRAPH_OPT=1 \
   --device nvidia.com/gpu=0 \
   ${LLAMA_IMAGE} \
-  --port 8080 --host 0.0.0.0 \
+  --port 8080 --host 0.0.0.0 --metrics \
   --models-preset /models/llama-server-presets.ini \
   --models-max 1
 
